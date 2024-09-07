@@ -106,3 +106,21 @@ Here is an example:
 As shown the tool heavily relies on the `chromedp`, I recommend reading up on their docs and their examples to see the full extent of its capabilities [here](https://github.com/chromedp/chromedp).
 
 Hopefully as more attacks get released here they will be sufficient to draw inspiration from.
+
+### Running your new attack
+
+Now that your attacks are defined, head over the `main.go` to change the default attack list and you should be able to see your brand you attacks when visiting `localhost:8000`
+
+## Contributing
+
+I know right now the tool is a bit rough around the edges, if more people find it valuable and would like a better interface with the tool (CLI and config options) I will definitely consider building it.
+
+If you feel like that is something you would like to do feel free to shoot over a PR and I will be happy to merge it if it improves the usability and/or performance of the tool.
+
+### Adding more attacks
+
+I will be adding more I promise, however if you have some cool ones you would like to contribute please feel free to open a PR.
+
+## Disclaimer
+
+Feel free to use this tool however you like, of course I do not encourage nor take any responsibility for any illegal behavior done with this tool.
