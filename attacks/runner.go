@@ -49,14 +49,16 @@ func Visit(attack *Attack, comm chan AttackResult) {
 		ctx, cancel = chromedp.NewRemoteAllocator(context.Background(), AttachUrl)
 	} else {
 		opts := append(chromedp.DefaultExecAllocatorOptions[:],
-			chromedp.Flag("headless", false),
+			chromedp.Flag("headless", true),
 			chromedp.Flag("incognito", true),
+			// Used to bypass bot detection
+			chromedp.UserAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3830.0 Safari/537.36"),
 		)
 		opts = append(opts, attack.CustomBrowserFlags...)
 		ctx, cancel = chromedp.NewExecAllocator(context.Background(), opts...)
 	}
 	defer cancel()
-	ctx, cancel = chromedp.NewContext(ctx)
+	ctx, cancel = chromedp.NewContext(ctx, chromedp.WithDebugf(log.Printf))
 	defer cancel()
 
 	urlPattern := regexp.MustCompile(attack.Type.Regex)

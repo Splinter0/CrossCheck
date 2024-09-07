@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/Splinter0/Fixer/attacks"
-	httphandler "github.com/Splinter0/Fixer/http-handler"
+	"github.com/Splinter0/CrossCheck/attacks"
+	httphandler "github.com/Splinter0/CrossCheck/http-handler"
 )
 
 func main() {

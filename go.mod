@@ -1,4 +1,4 @@
-module github.com/Splinter0/Fixer
+module github.com/Splinter0/CrossCheck
 
 go 1.21.6
 

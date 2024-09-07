@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"text/template"
 
-	"github.com/Splinter0/Fixer/attacks"
+	"github.com/Splinter0/CrossCheck/attacks"
 )
 
 // Results of attacks storage (cleaned after displaying it to the victim)
