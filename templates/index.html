@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cross Device Authentication Testing</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+</head>
+<body>
+    <style>
+        body {
+            margin: 50px;
+        }
+    </style>
+    <h1>Cross Device Authentication Testing</h1>
+    <p>Tool by mastersplinter, more info at:</p><a href="https://mastersplinter.work">https://mastersplinter.work</a>
+    <h2>Deep link attacks available:</h2>
+    <ul>
+        {{range .Attacks}}
+        <li><a href="{{.}}">{{.}}</a></li>
+        {{end}}
+    </ul>
+    <h2>QR code attacks available:</h2>
+    <p>Note: all of these attacks require a second device to test</p>
+    <ul>
+        {{range .QrAttacks}}
+        <li><a href="{{.}}">{{.}}</a></li>
+        {{end}}
+    </ul>
+    {{if .Result}}
+        <h2>Attack Result</h2>
+        <textarea rows="10" cols="50" readonly>{{.Result}}</textarea>
+    {{end}}
+</body>
+</html>

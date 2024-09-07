@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+</head>
+<body>
+    <style>
+        body {
+            margin: auto;
+            width: 50%;
+        }
+    </style>
+    <h1>Scan the QR code to login</h1>
+    <img id="refreshing-image" src="{{.Qr}}" alt="Refreshing Image">
+
+    <script>
+        const imageElement = document.getElementById('refreshing-image');
+
+        function refreshImage() {
+            const timestamp = new Date().getTime();
+            imageElement.src = "{{.Qr}}?b=" + Date.now();
+        }
+
+        setInterval(refreshImage, 1000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="never">
+    <title>{{.TagretLink}}</title>
+</head>
+<body>
+    <body>
+        <p>Redirecting...</p>
+        <script>
+            history.pushState('', '', '/');
+            var linkElement = document.createElement('a');
+            linkElement.setAttribute('href', "{{.DeepLink}}");
+            document.body.appendChild(linkElement);
+            linkElement.click();
+            document.body.removeChild(linkElement);
+
+            var awayTime = {{.AwayTime}};
+            if (navigator.userAgent.includes("Firefox") || navigator.userAgent.includes("FxiOS")) {
+                awayTime = 0;
+            }
+            
+            setTimeout(function() {
+                var linkElement = document.createElement('a');
+                linkElement.setAttribute('href', "{{.TagretLink}}");
+                linkElement.click();
+            }, awayTime);
+        </script>
+    </body>
+</body>
+</html>
