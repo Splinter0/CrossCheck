@@ -58,7 +58,7 @@ func Visit(attack *Attack, comm chan AttackResult) {
 		ctx, cancel = chromedp.NewExecAllocator(context.Background(), opts...)
 	}
 	defer cancel()
-	ctx, cancel = chromedp.NewContext(ctx, chromedp.WithDebugf(log.Printf))
+	ctx, cancel = chromedp.NewContext(ctx)
 	defer cancel()
 
 	urlPattern := regexp.MustCompile(attack.Type.Regex)
