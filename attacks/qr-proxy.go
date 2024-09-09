@@ -11,7 +11,7 @@ import (
 
 type QrProxyAttack struct {
 	Url                string                         // Main Url to visit
-	Length             int                            // Length of attack in millisenconds
+	Length             int                            // Length of attack in milliseconds
 	Sleep              int                            // Milliseconds to wait after reaching target QR code page to start taking screenshots
 	Actions            []chromedp.Action              // Actions of the headless browser
 	Path               string                         // Path to host attack on
@@ -22,8 +22,9 @@ type QrProxyAttack struct {
 
 func QrProxyVisit(attack *QrProxyAttack, comm *chan []byte, attackResult AttackResult) {
 	opts := append(chromedp.DefaultExecAllocatorOptions[:],
-		chromedp.Flag("headless", false),
+		chromedp.Flag("headless", true),
 		chromedp.Flag("incognito", true),
+		chromedp.UserAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3830.0 Safari/537.36"),
 	)
 	opts = append(opts, attack.CustomBrowserFlags...)
 	ctx, cancel := chromedp.NewExecAllocator(context.Background(), opts...)
@@ -36,10 +37,6 @@ func QrProxyVisit(attack *QrProxyAttack, comm *chan []byte, attackResult AttackR
 			chromedp.Navigate(attack.Url),
 		},
 		attack.Actions...,
-	)
-	actions = append(
-		actions,
-		chromedp.Sleep(time.Duration(attack.Sleep)*time.Millisecond),
 	)
 
 	err := chromedp.Run(ctx, actions...)

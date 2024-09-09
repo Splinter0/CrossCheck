@@ -117,6 +117,11 @@ I know right now the tool is a bit rough around the edges, if more people find i
 
 If you feel like that is something you would like to do feel free to shoot over a PR and I will be happy to merge it if it improves the usability and/or performance of the tool.
 
+### TODO
+
+- Dockerized solution including all dependencies like the headless browser
+- Configuration based system that allows attack definition via JSON
+
 ### Adding more attacks
 
 I will be adding more I promise, however if you have some cool ones you would like to contribute please feel free to open a PR.

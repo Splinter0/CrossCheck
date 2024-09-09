@@ -1,12 +1,8 @@
 package attacks
 
 import (
-	"encoding/base64"
-	"regexp"
-	"strings"
 	"time"
 
-	"github.com/chromedp/cdproto/fetch"
 	"github.com/chromedp/chromedp"
 )
 
@@ -37,7 +33,7 @@ func DemoAbleAttacks() []Attack {
 			Type:        BankIDAttack,
 			ExfilArea:   `/html/body/div/div[2]/div[1]/div[1]/div/div[2]/div[2]/div[1]`,
 			// Removing the test markdown text
-			RequestInterception: func(ev *fetch.EventRequestPaused) *fetch.ContinueRequestParams {
+			/*RequestInterception: func(ev *fetch.EventRequestPaused) *fetch.ContinueRequestParams {
 				var fetchRequest *fetch.ContinueRequestParams
 				if strings.Contains(ev.Request.URL, "/demo/api/authentication") {
 					r, _ := base64.StdEncoding.DecodeString((ev.Request.PostDataEntries[0].Bytes))
@@ -48,7 +44,7 @@ func DemoAbleAttacks() []Attack {
 					fetchRequest = fetch.ContinueRequest(ev.RequestID)
 				}
 				return fetchRequest
-			},
+			},*/
 		},
 	}
 }

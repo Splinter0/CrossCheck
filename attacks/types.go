@@ -72,6 +72,7 @@ type Attack struct {
 	CustomBrowserFlags  []chromedp.ExecAllocatorOption                                  // Custom flags to pass to the headless browser
 	ExfiltrationSteps   []chromedp.Action                                               // Headless browsers steps to be taken to exfiltrate data (not required)
 	ExfilArea           string                                                          // XPath for text to extract out of the page after exfiltration steps
+	MimicUserAgent      bool                                                            // If the authentication request should be made mirroring the user agent observed from the victim
 }
 
 func (a Attack) Result(deepLink string) AttackResult {

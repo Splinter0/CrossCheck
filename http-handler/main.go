@@ -6,6 +6,7 @@ import (
 	"text/template"
 
 	"github.com/Splinter0/CrossCheck/attacks"
+	"github.com/chromedp/chromedp"
 )
 
 // Results of attacks storage (cleaned after displaying it to the victim)
@@ -37,6 +38,13 @@ func LaunchAttacks(atcks []attacks.Attack, qrAttacks []attacks.QrProxyAttack) {
 		http.HandleFunc(url, func(w http.ResponseWriter, r *http.Request) {
 			log.Printf("%s - %s", r.RemoteAddr, attack.Path)
 			comm := make(chan attacks.AttackResult, 1)
+
+			if attack.MimicUserAgent {
+				attack.CustomBrowserFlags = append(
+					attack.CustomBrowserFlags,
+					chromedp.UserAgent(r.UserAgent()),
+				)
+			}
 
 			go attacks.Visit(&attack, comm) // Run attack steps
 
