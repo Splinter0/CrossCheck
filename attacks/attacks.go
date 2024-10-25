@@ -12,7 +12,7 @@ var EXFIL_RESULT string
 
 var BankIDAttack AttackType = AttackType{
 	Name:      "bankid",
-	Regex:     `(bankid:\/\/\/)?\?autostarttoken=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}&redirect=\w+`,
+	Regex:     `(bankid:\/\/\/)?\?autostarttoken=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}&redirect=(\w+)?`,
 	Prefix:    "bankid:///",
 	ReturnArg: "redirect",
 }
