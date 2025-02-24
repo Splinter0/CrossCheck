@@ -6,5 +6,5 @@ import (
 )
 
 func main() {
-	httphandler.LaunchAttacks(attacks.DemoAbleAttacks(), attacks.DemoQRProxyAttacks())
+	httphandler.LaunchAttacks(attacks.DemoAbleAttacks(), attacks.DemoQRProxyAttacks(), attacks.PasskeyProxyAttacks())
 }

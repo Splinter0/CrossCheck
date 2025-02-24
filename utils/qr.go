@@ -5,6 +5,7 @@ import (
 	"image"
 	"image/png"
 	_ "image/png"
+	"io/ioutil"
 	"log"
 	"os"
 
@@ -46,4 +47,14 @@ func CreateQR(qrData string) {
 	if err != nil {
 		log.Println("Error saving QR code", err.Error())
 	}
+}
+
+func DecodeQRCodeFromFile(path string) string {
+	data, err := ioutil.ReadFile(path)
+	if err != nil {
+		log.Fatalf("Failed reading qr code from file: %s", err)
+		return ""
+	}
+
+	return DecodeQR(data)
 }

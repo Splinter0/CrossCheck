@@ -8,13 +8,20 @@ This tool relies on a headless browser to test for a simple attack that allows a
 
 Currently only one attack is available for use, slowly as other vulnerabilities get disclosed publicly more will be added. 
 
-The attack available is to test Swedish BankID configurations, related to the research that can be found [here](https://mastersplinter.work/bankid)
 
 This tool requires:
 - `go >= 1.21.6` 
 - `chromium` or `google-chrome` and the respective headless driver
+- `imagemagick` for attacks against PassKey QR codes
 
 After installing those dependencies the tool can be run with `go run .`.
+
+## Attacks available
+
+Some attacks related to public research are available to play around with:
+
+- Testing Swedish BankID configurations, related to the research that can be found [here](https://mastersplinter.work/research/bankid)
+- PassKey CTAP man-in-the-middle `FIDO:/` as deep-links, related to the research that can be found [here](https://mastersplinter.work/research/passkey)
 
 ## Attack steps
 

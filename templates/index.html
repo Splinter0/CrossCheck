@@ -26,6 +26,12 @@
         <li><a href="{{.}}">{{.}}</a></li>
         {{end}}
     </ul>
+    <h2>PassKey code attacks available:</h2>
+    <ul>
+        {{range .PasskeyAttacks}}
+        <li><a href="{{.}}">{{.}}</a></li>
+        {{end}}
+    </ul>
     {{if .Result}}
         <h2>Attack Result</h2>
         <textarea rows="10" cols="50" readonly>{{.Result}}</textarea>
